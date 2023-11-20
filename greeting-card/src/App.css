@@ -1,5 +1,5 @@
 body {
-  background-color: #f4f4f4;
+  background-color: #000; /* Set the background color to black */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,8 +18,9 @@ body {
   padding: 20px;
   border-radius: 16px;
   text-align: center;
-  background-color: #fff;
+  background-color: #000; /* Set the background color to black */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #fff; /* Set text color to white */
 }
 
 .birthday {
@@ -33,21 +34,14 @@ body {
 .birthday-title {
   color: #ff3366;
   font-size: 36px;
-  margin-bottom: 10px;
 }
 
 .apology-title {
   color: #3399ff;
   font-size: 36px;
-  margin-bottom: 10px;
 }
 
-.birthday-message {
-  color: #666;
-  font-size: 18px;
-  margin-bottom: 30px;
-}
-
+.birthday-message,
 .apology-message {
   color: #666;
   font-size: 18px;
