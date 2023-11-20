@@ -120,17 +120,34 @@ function App() {
     setAudio(audioElement);
   }, []);
 
+  useEffect(() => {
+    if (audio) {
+      const handleAudioEnded = () => {
+        audio.currentTime = 0; // Reset audio playback to the beginning
+        audio.play().catch(error => console.error('Failed to play audio:', error));
+        setIsMusicPlaying(true);
+      };
+
+      audio.addEventListener('ended', handleAudioEnded);
+
+      return () => {
+        audio.removeEventListener('ended', handleAudioEnded);
+      };
+    }
+  }, [audio]);
+
   const handleAudioToggle = () => {
     if (audio) {
       if (isMusicPlaying) {
         audio.pause();
-        audio.currentTime = 0;
+        setIsMusicPlaying(false);
       } else {
         audio.play().catch(error => console.error('Failed to play audio:', error));
+        setIsMusicPlaying(true);
       }
-      setIsMusicPlaying(!isMusicPlaying);
     }
   };
+
 
   const cardAnimation = useSpring({
     opacity: 1,
@@ -241,6 +258,24 @@ function App() {
     return () => clearInterval(intervalId);
   }, []);
 
+  // Function to get the ordinal suffix for a number
+  const getOrdinalSuffix = (number) => {
+    if (number % 100 >= 11 && number % 100 <= 13) {
+      return 'th';
+    }
+    switch (number % 10) {
+      case 1:
+        return 'st';
+      case 2:
+        return 'nd';
+      case 3:
+        return 'rd';
+      default:
+        return 'th';
+    }
+  };
+
+  // Calculate the age and get the ordinal suffix
   const calculateAge = () => {
     const birthday = new Date('November 17, 2000'); // Update the birthdate as needed
     const today = new Date();
@@ -254,14 +289,15 @@ function App() {
       age--;
     }
 
-    return age;
+    const suffix = getOrdinalSuffix(age);
+    return `${age}${suffix}`;
   };
 
   return (
     <div className="App">
       <animated.div style={cardAnimation} className={`card ${isBirthday ? 'birthday' : 'apology'}`}>
         <h1 className={isBirthday ? 'birthday-title' : 'apology-title'}>
-          {isBirthday ? `Happy ${calculateAge()}rd Birthday Uma!` : 'I\'m Sorry'}
+          {isBirthday ? `Happy ${calculateAge()} Birthday Uma!` : 'I\'m Sorry'}
         </h1>
         {/* <h1 className={isBirthday ? 'birthday-title' : 'apology-title'}>
           {isBirthday ? 'Happy Birthday Umu!' : 'I\'m Sorry'}
@@ -307,11 +343,11 @@ function App() {
         <div className="music-player">
           <button onClick={handleAudioToggle}
             style={{
-              fontSize: '12px', // Adjust the font size as needed
+              fontSize: '12px',
               position: 'absolute',
-              top: '1px', // Adjust the bottom position as needed
-              right: '0', // Adjust the right position as needed
-              margin: '2px', // Adjust the margin as needed
+              top: '1px',
+              right: '0',
+              margin: '2px',
             }}>
             {isMusicPlaying ? 'Pause' : 'Play'}
           </button>
