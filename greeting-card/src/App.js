@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSpring, animated, config } from 'react-spring';
-import ReactPlayer from 'react-player';
 import './App.css';
-
-const confettiColors = ['#ffcc00', '#ff6699', '#99ff99', '#3399ff', '#ff9966'];
 
 const images = [
   '/IMG_2673.jpg',
@@ -98,98 +95,42 @@ const shuffleArray = (array) => {
 };
 
 function App() {
-  const [isBirthday, setIsBirthday] = useState(true);
+  const [isBirthday, setIsBirthday] = useState(() => {
+    const storedIsBirthday = localStorage.getItem('isBirthday');
+    return storedIsBirthday !== null ? JSON.parse(storedIsBirthday) : true;
+  });
   const [compliments, setCompliments] = useState([]);
   const [compliment, setCompliment] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showApologyButton, setShowApologyButton] = useState(false);
+  const [audio, setAudio] = useState(null);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [isCheckboxDisabled, setIsCheckboxDisabled] = useState(false);
 
   useEffect(() => {
     const initialCompliments = [
-      `You are amazing!`,
-      `I appreciate you so much!`,
-      `You make every day special.`,
-      `You have a heart of gold.`,
-      `Your kindness knows no bounds.`,
-      `You always bring a smile to my face.`,
-      `Your positive energy is contagious.`,
-      `You're a true gem.`,
-      `Your presence makes a difference.`,
-      `You radiate beauty, inside and out.`,
-      `You're a beacon of light.`,
-      `You have a wonderful sense of humor.`,
-      `Your strength is admirable.`,
-      `You're a fantastic friend.`,
-      `You're so thoughtful and considerate.`,
-      `You're a joy to be around.`,
-      `Your resilience is inspiring.`,
-      `You're a true blessing in my life.`,
-      `Your generosity knows no limits.`,
-      `You're a ray of sunshine.`,
-      `Your positive attitude is uplifting.`,
-      `You're incredibly talented.`,
-      'You have a heart as big as the ocean.',
-      'Your smile lights up the room.',
-      'You make the world a better place.',
-      `You're a true friend in every sense.`,
-      `Your passion is contagious.`,
-      `You're a remarkable person.`,
-      `You make a significant impact.`,
-      `Your dedication is commendable.`,
-      `You're a beautiful soul.`,
-      `Your presence brings joy to others.`,
-      `You're one in a million.`,
-      `You're a beacon of positivity.`,
-      `You have an incredible work ethic.`,
-      `You're a true example of kindness.`,
-      `Your perseverance is admirable.`,
-      `You're a genuine and authentic person.`,
-      `You have a heart full of love.`,
-      `Your friendship means the world to me.`,
-      `You're an absolute delight.`,
-      `You handle challenges with grace.`,
-      `You're a source of inspiration for many.`,
-      `Your generosity knows no bounds.`,
-      `You're a beautiful person, inside and out.`,
-      `You have a heart of gold.`,
-      `You're a fantastic listener.`,
-      `Your compassion knows no limits.`,
-      `You're a true gift to those around you.`,
-      `You have an incredible spirit.`,
-      `You're a source of strength for others.`,
-      `Your positive outlook is contagious.`,
-      `You're an absolute treasure.`,
-      `You have an unwavering resolve.`,
-      `You're a beacon of hope for others.`,
-      `Your sincerity is refreshing.`,
-      `You're a true original.`,
-      `You make a difference in the world.`,
-      `Your creativity knows no bounds.`,
-      `You're a pillar of strength.`,
-      `You're a true team player.`,
-      `Your generosity is inspiring.`,
-      `You're a constant source of positivity.`,
-      `You're an extraordinary person.`,
-      `Your humility is truly admirable.`,
-      `You're a shining example of kindness.`,
-      `You have a magnetic personality.`,
-      `You're a source of inspiration for many.`,
-      `Your dedication is truly commendable.`,
-      `You're a true role model.`,
-      `Your selflessness is truly remarkable.`,
-      `You're a source of joy and happiness.`,
-      `Your kindness leaves a lasting impact.`,
-      `You're an absolute joy to be around.`,
-      `You're a true force for good in the world.`,
-      `Your optimism is contagious.`,
-      `You're a ray of sunshine on cloudy days.`,
-      `You have a heart that's as big as the sky.`,
-      `You're a beacon of positivity in the world.`
-
+      // ... (all your compliments)
     ];
     setCompliments(shuffleArray([...initialCompliments]));
     shuffleArray(images);
   }, []);
+
+  useEffect(() => {
+    const audioElement = new Audio(process.env.PUBLIC_URL + '/Sam Smith - Fire On Fire (From _Watership Down_).mp3');
+    setAudio(audioElement);
+  }, []);
+
+  const handleAudioToggle = () => {
+    if (audio) {
+      if (isMusicPlaying) {
+        audio.pause();
+        audio.currentTime = 0;
+      } else {
+        audio.play().catch(error => console.error('Failed to play audio:', error));
+      }
+      setIsMusicPlaying(!isMusicPlaying);
+    }
+  };
 
   const cardAnimation = useSpring({
     opacity: 1,
@@ -198,17 +139,98 @@ function App() {
     config: config.wobbly,
   });
 
-  const confettiAnimation = useSpring({
-    from: { opacity: 0, transform: 'translateY(0px)' },
-    to: { opacity: 1, transform: 'translateY(300px)' },
-    config: config.stiff,
-    reset: isBirthday,
-  });
+  const handleCompliment = () => {
+    if (compliments.length === 0) {
+      const initialCompliments = [
+        `You are amazing!`,
+        `I appreciate you so much!`,
+        `You make every day special.`,
+        `You have a heart of gold.`,
+        `Your kindness knows no bounds.`,
+        `You always bring a smile to my face.`,
+        `Your positive energy is contagious.`,
+        `You're a true gem.`,
+        `Your presence makes a difference.`,
+        `You radiate beauty, inside and out.`,
+        `You're a beacon of light.`,
+        `You have a wonderful sense of humor.`,
+        `Your strength is admirable.`,
+        `You're a fantastic friend.`,
+        `You're so thoughtful and considerate.`,
+        `You're a joy to be around.`,
+        `Your resilience is inspiring.`,
+        `You're a true blessing in my life.`,
+        `Your generosity knows no limits.`,
+        `You're a ray of sunshine.`,
+        `Your positive attitude is uplifting.`,
+        `You're incredibly talented.`,
+        'You have a heart as big as the ocean.',
+        'Your smile lights up the room.',
+        'You make the world a better place.',
+        `You're a true friend in every sense.`,
+        `Your passion is contagious.`,
+        `You're a remarkable person.`,
+        `You make a significant impact.`,
+        `Your dedication is commendable.`,
+        `You're a beautiful soul.`,
+        `Your presence brings joy to others.`,
+        `You're one in a million.`,
+        `You're a beacon of positivity.`,
+        `You have an incredible work ethic.`,
+        `You're a true example of kindness.`,
+        `Your perseverance is admirable.`,
+        `You're a genuine and authentic person.`,
+        `You have a heart full of love.`,
+        `Your friendship means the world to me.`,
+        `You're an absolute delight.`,
+        `You handle challenges with grace.`,
+        `You're a source of inspiration for many.`,
+        `Your generosity knows no bounds.`,
+        `You're a beautiful person, inside and out.`,
+        `You have a heart of gold.`,
+        `You're a fantastic listener.`,
+        `Your compassion knows no limits.`,
+        `You're a true gift to those around you.`,
+        `You have an incredible spirit.`,
+        `You're a source of strength for others.`,
+        `Your positive outlook is contagious.`,
+        `You're an absolute treasure.`,
+        `You have an unwavering resolve.`,
+        `You're a beacon of hope for others.`,
+        `Your sincerity is refreshing.`,
+        `You're a true original.`,
+        `You make a difference in the world.`,
+        `Your creativity knows no bounds.`,
+        `You're a pillar of strength.`,
+        `You're a true team player.`,
+        `Your generosity is inspiring.`,
+        `You're a constant source of positivity.`,
+        `You're an extraordinary person.`,
+        `Your humility is truly admirable.`,
+        `You're a shining example of kindness.`,
+        `You have a magnetic personality.`,
+        `You're a source of inspiration for many.`,
+        `Your dedication is truly commendable.`,
+        `You're a true role model.`,
+        `Your selflessness is truly remarkable.`,
+        `You're a source of joy and happiness.`,
+        `Your kindness leaves a lasting impact.`,
+        `You're an absolute joy to be around.`,
+        `You're a true force for good in the world.`,
+        `Your optimism is contagious.`,
+        `You're a ray of sunshine on cloudy days.`,
+        `You have a heart that's as big as the sky.`,
+        `You're a beacon of positivity in the world.`
+
+      ];
+      setCompliments(shuffleArray([...initialCompliments]));
+    }
+    const randomCompliment = compliments.pop();
+    setCompliment(randomCompliment);
+  };
 
   useEffect(() => {
-    if (isBirthday) {
-      animateBalloons();
-    }
+    localStorage.setItem('isBirthday', JSON.stringify(isBirthday));
   }, [isBirthday]);
 
   useEffect(() => {
@@ -217,40 +239,33 @@ function App() {
     }, 3000);
 
     return () => clearInterval(intervalId);
-  }, []); // Run this effect only once on component mount
+  }, []);
 
-  const animateBalloons = () => {
-    const balloons = document.querySelectorAll('.balloon');
-    // Add animation logic for balloons
-  };
+  const calculateAge = () => {
+    const birthday = new Date('November 17, 2000'); // Update the birthdate as needed
+    const today = new Date();
+    let age = today.getFullYear() - birthday.getFullYear();
 
-  const handleCompliment = () => {
-    // Check if compliments array is empty, then reshuffle
-    if (compliments.length === 0) {
-      const initialCompliments = [
-        // ... (all your compliments)
-      ];
-      setCompliments(shuffleArray([...initialCompliments]));
+    // Check if the birthday has occurred this year
+    if (
+      today.getMonth() < birthday.getMonth() ||
+      (today.getMonth() === birthday.getMonth() && today.getDate() < birthday.getDate())
+    ) {
+      age--;
     }
-    const randomCompliment = compliments.pop();
-    setCompliment(randomCompliment);
+
+    return age;
   };
 
   return (
     <div className="App">
-      <ReactPlayer
-        url={process.env.PUBLIC_URL + '/Sam Smith - Fire On Fire (From _Watership Down_).mp3'}
-        playing
-        loop
-        volume={0.5}
-        muted={!isBirthday}
-        height="0"
-        width="0"
-      />
       <animated.div style={cardAnimation} className={`card ${isBirthday ? 'birthday' : 'apology'}`}>
         <h1 className={isBirthday ? 'birthday-title' : 'apology-title'}>
-          {isBirthday ? 'Happy Birthday Umu!' : 'I\'m Sorry'}
+          {isBirthday ? `Happy ${calculateAge()}rd Birthday Uma!` : 'I\'m Sorry'}
         </h1>
+        {/* <h1 className={isBirthday ? 'birthday-title' : 'apology-title'}>
+          {isBirthday ? 'Happy Birthday Umu!' : 'I\'m Sorry'}
+        </h1> */}
         <p className={isBirthday ? 'birthday-message' : 'apology-message'}>
           {isBirthday ? 'Wishing you a fantastic day!' : 'I apologize, let me make it up to you.'}
         </p>
@@ -267,16 +282,40 @@ function App() {
             <div className="cake-container">
               <img src={process.env.PUBLIC_URL + images[currentImageIndex]} alt="Uma" className="cake-image" />
             </div>
+
           </>
         )}
+
         {showApologyButton && (
-          <button onClick={() => setIsBirthday(!isBirthday)}>
+          <button onClick={() => {
+            setIsBirthday(!isBirthday);
+            setIsCheckboxDisabled(isBirthday); // Disable the checkbox only when switching to Birthday
+          }}>
             {isBirthday ? 'Switch to Apology' : 'Switch to Birthday'}
           </button>
         )}
+
         <label>
-          <input type="checkbox" checked={showApologyButton} onChange={() => setShowApologyButton(!showApologyButton)} />
+          <input
+            type="checkbox"
+            checked={showApologyButton}
+            onChange={() => setShowApologyButton(!showApologyButton)}
+            disabled={isCheckboxDisabled}
+          />
         </label>
+
+        <div className="music-player">
+          <button onClick={handleAudioToggle}
+            style={{
+              fontSize: '12px', // Adjust the font size as needed
+              position: 'absolute',
+              top: '1px', // Adjust the bottom position as needed
+              right: '0', // Adjust the right position as needed
+              margin: '2px', // Adjust the margin as needed
+            }}>
+            {isMusicPlaying ? 'Pause' : 'Play'}
+          </button>
+        </div>
       </animated.div>
     </div>
   );

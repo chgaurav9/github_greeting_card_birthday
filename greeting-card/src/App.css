@@ -12,6 +12,15 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  position: relative; /* Add this line to make the player relative to the main container */
+}
+
+.music-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Set the width to 100% to cover the entire container */
+  background-color: transparent; /* Set background color as transparent */
 }
 
 .card {
