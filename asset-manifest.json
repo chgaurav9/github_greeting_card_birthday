@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/github_greeting_card_birthday/static/css/main.55151ea5.css",
+    "main.js": "/github_greeting_card_birthday/static/js/main.ca1809b2.js",
+    "static/js/787.066d874e.chunk.js": "/github_greeting_card_birthday/static/js/787.066d874e.chunk.js",
+    "index.html": "/github_greeting_card_birthday/index.html",
+    "main.55151ea5.css.map": "/github_greeting_card_birthday/static/css/main.55151ea5.css.map",
+    "main.ca1809b2.js.map": "/github_greeting_card_birthday/static/js/main.ca1809b2.js.map",
+    "787.066d874e.chunk.js.map": "/github_greeting_card_birthday/static/js/787.066d874e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.55151ea5.css",
+    "static/js/main.ca1809b2.js"
+  ]
+}
