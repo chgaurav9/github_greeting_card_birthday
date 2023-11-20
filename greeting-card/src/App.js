@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSpring, animated, config } from 'react-spring';
+import ReactPlayer from 'react-player';
 import './App.css';
 
 const confettiColors = ['#ffcc00', '#ff6699', '#99ff99', '#3399ff', '#ff9966'];
@@ -87,7 +88,6 @@ const images = [
   '/PHOTO-2023-09-16-21-35-57.jpg',
 ];
 
-
 // Shuffle function for arrays
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -99,14 +99,96 @@ const shuffleArray = (array) => {
 
 function App() {
   const [isBirthday, setIsBirthday] = useState(true);
+  const [compliments, setCompliments] = useState([]);
   const [compliment, setCompliment] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showApologyButton, setShowApologyButton] = useState(false);
 
-  // Shuffle images and compliments on component mount
   useEffect(() => {
+    const initialCompliments = [
+      `You are amazing!`,
+      `I appreciate you so much!`,
+      `You make every day special.`,
+      `You have a heart of gold.`,
+      `Your kindness knows no bounds.`,
+      `You always bring a smile to my face.`,
+      `Your positive energy is contagious.`,
+      `You're a true gem.`,
+      `Your presence makes a difference.`,
+      `You radiate beauty, inside and out.`,
+      `You're a beacon of light.`,
+      `You have a wonderful sense of humor.`,
+      `Your strength is admirable.`,
+      `You're a fantastic friend.`,
+      `You're so thoughtful and considerate.`,
+      `You're a joy to be around.`,
+      `Your resilience is inspiring.`,
+      `You're a true blessing in my life.`,
+      `Your generosity knows no limits.`,
+      `You're a ray of sunshine.`,
+      `Your positive attitude is uplifting.`,
+      `You're incredibly talented.`,
+      'You have a heart as big as the ocean.',
+      'Your smile lights up the room.',
+      'You make the world a better place.',
+      `You're a true friend in every sense.`,
+      `Your passion is contagious.`,
+      `You're a remarkable person.`,
+      `You make a significant impact.`,
+      `Your dedication is commendable.`,
+      `You're a beautiful soul.`,
+      `Your presence brings joy to others.`,
+      `You're one in a million.`,
+      `You're a beacon of positivity.`,
+      `You have an incredible work ethic.`,
+      `You're a true example of kindness.`,
+      `Your perseverance is admirable.`,
+      `You're a genuine and authentic person.`,
+      `You have a heart full of love.`,
+      `Your friendship means the world to me.`,
+      `You're an absolute delight.`,
+      `You handle challenges with grace.`,
+      `You're a source of inspiration for many.`,
+      `Your generosity knows no bounds.`,
+      `You're a beautiful person, inside and out.`,
+      `You have a heart of gold.`,
+      `You're a fantastic listener.`,
+      `Your compassion knows no limits.`,
+      `You're a true gift to those around you.`,
+      `You have an incredible spirit.`,
+      `You're a source of strength for others.`,
+      `Your positive outlook is contagious.`,
+      `You're an absolute treasure.`,
+      `You have an unwavering resolve.`,
+      `You're a beacon of hope for others.`,
+      `Your sincerity is refreshing.`,
+      `You're a true original.`,
+      `You make a difference in the world.`,
+      `Your creativity knows no bounds.`,
+      `You're a pillar of strength.`,
+      `You're a true team player.`,
+      `Your generosity is inspiring.`,
+      `You're a constant source of positivity.`,
+      `You're an extraordinary person.`,
+      `Your humility is truly admirable.`,
+      `You're a shining example of kindness.`,
+      `You have a magnetic personality.`,
+      `You're a source of inspiration for many.`,
+      `Your dedication is truly commendable.`,
+      `You're a true role model.`,
+      `Your selflessness is truly remarkable.`,
+      `You're a source of joy and happiness.`,
+      `Your kindness leaves a lasting impact.`,
+      `You're an absolute joy to be around.`,
+      `You're a true force for good in the world.`,
+      `Your optimism is contagious.`,
+      `You're a ray of sunshine on cloudy days.`,
+      `You have a heart that's as big as the sky.`,
+      `You're a beacon of positivity in the world.`
+
+    ];
+    setCompliments(shuffleArray([...initialCompliments]));
     shuffleArray(images);
-    shuffleArray(compliments);
   }, []);
 
   const cardAnimation = useSpring({
@@ -139,108 +221,32 @@ function App() {
 
   const animateBalloons = () => {
     const balloons = document.querySelectorAll('.balloon');
+    // Add animation logic for balloons
   };
 
-
-
-  const compliments = [
-    `You are amazing!`,
-    `I appreciate you so much!`,
-    `You make every day special.`,
-    `You have a heart of gold.`,
-    `Your kindness knows no bounds.`,
-    `You always bring a smile to my face.`,
-    `Your positive energy is contagious.`,
-    `You're a true gem.`,
-    `Your presence makes a difference.`,
-    `You radiate beauty, inside and out.`,
-    `You're a beacon of light.`,
-    `You have a wonderful sense of humor.`,
-    `Your strength is admirable.`,
-    `You're a fantastic friend.`,
-    `You're so thoughtful and considerate.`,
-    `You're a joy to be around.`,
-    `Your resilience is inspiring.`,
-    `You're a true blessing in my life.`,
-    `Your generosity knows no limits.`,
-    `You're a ray of sunshine.`,
-    `Your positive attitude is uplifting.`,
-    `You're incredibly talented.`,
-    'You have a heart as big as the ocean.',
-    'Your smile lights up the room.',
-    'You make the world a better place.',
-    `You're a true friend in every sense.`,
-    `Your passion is contagious.`,
-    `You're a remarkable person.`,
-    `You make a significant impact.`,
-    `Your dedication is commendable.`,
-    `You're a beautiful soul.`,
-    `Your presence brings joy to others.`,
-    `You're one in a million.`,
-    `You have a gift for making people feel valued.`,
-    `You're a beacon of positivity.`,
-    `You have an incredible work ethic.`,
-    `You're a true example of kindness.`,
-    `Your perseverance is admirable.`,
-    `You're a genuine and authentic person.`,
-    `You have a heart full of love.`,
-    `Your friendship means the world to me.`,
-    `You're an absolute delight.`,
-    `You handle challenges with grace.`,
-    `You're a source of inspiration for many.`,
-    `Your generosity knows no bounds.`,
-    `You're a beautiful person, inside and out.`,
-    `You have a heart of gold.`,
-    `You make a positive impact on everyone you meet.`,
-    `You're a fantastic listener.`,
-    `Your compassion knows no limits.`,
-    `You're a true gift to those around you.`,
-    `You have an incredible spirit.`,
-    `You're a source of strength for others.`,
-    `You're a true friend through thick and thin.`,
-    `Your positive outlook is contagious.`,
-    `You're an absolute treasure.`,
-    `You have an unwavering resolve.`,
-    `You're a beacon of hope for others.`,
-    `Your sincerity is refreshing.`,
-    `You're a true original.`,
-    `You make a difference in the world.`,
-    `Your creativity knows no bounds.`,
-    `You're a pillar of strength.`,
-    `You have a heart full of love and kindness.`,
-    `You're a true team player.`,
-    `Your generosity is inspiring.`,
-    `You're a constant source of positivity.`,
-    `You're an extraordinary person.`,
-    `Your humility is truly admirable.`,
-    `You're a shining example of kindness.`,
-    `You have a magnetic personality.`,
-    `You're a source of inspiration for many.`,
-    `Your dedication is truly commendable.`,
-    `You're a beacon of light in challenging times.`,
-    `You have an incredible ability to bring people together.`,
-    `You're a true role model.`,
-    `Your selflessness is truly remarkable.`,
-    `You're a source of joy and happiness.`,
-    `Your kindness leaves a lasting impact.`,
-    `You're an absolute joy to be around.`,
-    `You have an incredible way of making people feel seen and heard.`,
-    `You're a true force for good in the world.`,
-    `Your optimism is contagious.`,
-    `You're a ray of sunshine on cloudy days.`,
-    `You have a heart that's as big as the sky.`,
-    `You're a beacon of positivity in the world.`
-
-  ];
-
-
   const handleCompliment = () => {
+    // Check if compliments array is empty, then reshuffle
+    if (compliments.length === 0) {
+      const initialCompliments = [
+        // ... (all your compliments)
+      ];
+      setCompliments(shuffleArray([...initialCompliments]));
+    }
     const randomCompliment = compliments.pop();
     setCompliment(randomCompliment);
   };
 
   return (
     <div className="App">
+      <ReactPlayer
+        url={process.env.PUBLIC_URL + '/Sam Smith - Fire On Fire (From _Watership Down_).mp3'}
+        playing
+        loop
+        volume={0.5}
+        muted={!isBirthday}
+        height="0"
+        width="0"
+      />
       <animated.div style={cardAnimation} className={`card ${isBirthday ? 'birthday' : 'apology'}`}>
         <h1 className={isBirthday ? 'birthday-title' : 'apology-title'}>
           {isBirthday ? 'Happy Birthday Umu!' : 'I\'m Sorry'}
@@ -259,7 +265,7 @@ function App() {
               <button onClick={handleCompliment}>Give a Compliment</button>
             </div>
             <div className="cake-container">
-              <img src={process.env.PUBLIC_URL + images[currentImageIndex]} alt="Birthday Cake" className="cake-image" />
+              <img src={process.env.PUBLIC_URL + images[currentImageIndex]} alt="Uma" className="cake-image" />
             </div>
           </>
         )}
@@ -269,7 +275,6 @@ function App() {
           </button>
         )}
         <label>
-
           <input type="checkbox" checked={showApologyButton} onChange={() => setShowApologyButton(!showApologyButton)} />
         </label>
       </animated.div>
