@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/github_greeting_card_birthday/static/css/main.73bb4b48.css",
-    "main.js": "/github_greeting_card_birthday/static/js/main.ca1809b2.js",
+    "main.css": "/github_greeting_card_birthday/static/css/main.a6a05309.css",
+    "main.js": "/github_greeting_card_birthday/static/js/main.4f02c277.js",
     "static/js/787.066d874e.chunk.js": "/github_greeting_card_birthday/static/js/787.066d874e.chunk.js",
     "index.html": "/github_greeting_card_birthday/index.html",
-    "main.73bb4b48.css.map": "/github_greeting_card_birthday/static/css/main.73bb4b48.css.map",
-    "main.ca1809b2.js.map": "/github_greeting_card_birthday/static/js/main.ca1809b2.js.map",
+    "main.a6a05309.css.map": "/github_greeting_card_birthday/static/css/main.a6a05309.css.map",
+    "main.4f02c277.js.map": "/github_greeting_card_birthday/static/js/main.4f02c277.js.map",
     "787.066d874e.chunk.js.map": "/github_greeting_card_birthday/static/js/787.066d874e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.73bb4b48.css",
-    "static/js/main.ca1809b2.js"
+    "static/css/main.a6a05309.css",
+    "static/js/main.4f02c277.js"
   ]
 }
