@@ -297,13 +297,11 @@ function App() {
     <div className="App">
       <animated.div style={cardAnimation} className={`card ${isBirthday ? 'birthday' : 'apology'}`}>
         <h1 className={isBirthday ? 'birthday-title' : 'apology-title'}>
-          {isBirthday ? `Happy ${calculateAge()} Birthday Uma!` : 'I\'m Sorry'}
+          {/* {isBirthday ? `Happy ${calculateAge()} Birthday Uma!` : 'I\'m Sorry'} */}
+          {isBirthday ? `Hello Uma!` : 'I\'m Sorry'}
         </h1>
-        {/* <h1 className={isBirthday ? 'birthday-title' : 'apology-title'}>
-          {isBirthday ? 'Happy Birthday Umu!' : 'I\'m Sorry'}
-        </h1> */}
         <p className={isBirthday ? 'birthday-message' : 'apology-message'}>
-          {isBirthday ? 'Wishing you a fantastic day!' : 'I apologize, let me make it up to you.'}
+          {isBirthday ? 'I apologize, let me make it up to you.' : 'I apologize, let me make it up to you.'}
         </p>
         {isBirthday && (
           <>
@@ -331,14 +329,14 @@ function App() {
           </button>
         )}
 
-        <label>
+        {/* <label>
           <input
             type="checkbox"
             checked={showApologyButton}
             onChange={() => setShowApologyButton(!showApologyButton)}
             disabled={isCheckboxDisabled}
           />
-        </label>
+        </label> */}
 
         <div className="music-player">
           <button onClick={handleAudioToggle}
